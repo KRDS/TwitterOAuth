@@ -25,7 +25,7 @@ class Curl
      * @return array  Headers & Body
      * @throws CurlException
      */
-    public function send($url, array $params = array())
+    public function send($url, array $params = array(), array $curl_params = array())
     {
         $out = array();
 
@@ -38,7 +38,6 @@ class Curl
         );
 
         $params = array_merge($default, $params);
-
 
         // Get Params //
         if (is_array($params['get']) && !empty($params['get'])) {
@@ -53,22 +52,21 @@ class Curl
 
 
         // Curl Options //
-        $options = array(
-            CURLOPT_URL => $url,
-            CURLOPT_HEADER => true,
-            CURLOPT_TIMEOUT => 60,
-            CURLOPT_CONNECTTIMEOUT => 60,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_SSL_VERIFYPEER => true,
-            CURLOPT_SSL_VERIFYHOST => 2,
-            CURLOPT_CAINFO => dirname(__DIR__) . '/Certificates/rootca.pem',
-            CURLOPT_USERAGENT => 'TwitterOAuth for v1.1 API (https://github.com/ricardoper/TwitterOAuth)',
-
-            // FOR DEBUG ONLY - PROXY SETTINGS //
-            //CURLOPT_PROXY => '127.0.0.1',
-            //CURLOPT_PROXYPORT => 8888,
-        );
+        $options = array_replace(
+            array(
+                CURLOPT_URL => $url,
+                CURLOPT_HEADER => true,
+                CURLOPT_TIMEOUT => 60,
+                CURLOPT_CONNECTTIMEOUT => 60,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_SSL_VERIFYPEER => true,
+                CURLOPT_SSL_VERIFYHOST => 2,
+                CURLOPT_CAINFO => dirname(__DIR__) . '/Certificates/rootca.pem',
+                CURLOPT_USERAGENT => 'TwitterOAuth for v1.1 API (https://github.com/ricardoper/TwitterOAuth)',
+            ),
+            $curl_params
+		));
 
 
         // Post Params //
