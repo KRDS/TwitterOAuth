@@ -66,7 +66,7 @@ class Curl
                 CURLOPT_USERAGENT => 'TwitterOAuth for v1.1 API (https://github.com/ricardoper/TwitterOAuth)',
             ),
             $curl_params
-		));
+		);
 
 
         // Post Params //
