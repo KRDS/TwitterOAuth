@@ -42,7 +42,7 @@ abstract class AuthAbstract
      * @param SerializerInterface $serializer Output Serializer
      * @throws MissingCredentialsException
      */
-    public function __construct(array $credentials, SerializerInterface $serializer)
+    public function __construct(array $credentials, SerializerInterface $serializer, array $curlOptions = array())
     {
         $this->validateCredentials($credentials);
 
@@ -50,7 +50,7 @@ abstract class AuthAbstract
 
         $this->serializer = $serializer;
 
-        $this->curl = new Curl();
+        $this->curl = new Curl($curlOptions);
 
         unset($credentials, $serializer);
     }

@@ -17,6 +17,13 @@ use TwitterOAuth\Exception\CurlException;
 
 class Curl
 {
+    private $_options;
+
+    public function __construct($curlOptions = array())
+    {
+        $this->_options	=	$curlOptions;
+    }
+
     /**
      * Send a request
      *
@@ -25,7 +32,7 @@ class Curl
      * @return array  Headers & Body
      * @throws CurlException
      */
-    public function send($url, array $params = array(), array $curl_params = array())
+    public function send($url, array $params = array())
     {
         $out = array();
 
@@ -65,7 +72,7 @@ class Curl
                 CURLOPT_CAINFO => dirname(__DIR__) . '/Certificates/rootca.pem',
                 CURLOPT_USERAGENT => 'TwitterOAuth for v1.1 API (https://github.com/ricardoper/TwitterOAuth)',
             ),
-            $curl_params
+            $this->_options
 		);
 
 
