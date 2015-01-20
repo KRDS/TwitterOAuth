@@ -19,7 +19,7 @@ class Curl
 {
     private $_options;
 
-    public function __construct($curlOptions = array())
+    public function __construct(array $curlOptions = array())
     {
         $this->_options	=	$curlOptions;
     }
